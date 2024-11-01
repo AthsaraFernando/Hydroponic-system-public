@@ -6,7 +6,7 @@
 #define DHTTYPE DHT11
 DHT dht(DHTPIN, DHTTYPE);
 
-// TM1637 Configuration for Humidity Display
+// TM1637 Configuration for Humidity Display //
 #define CLK 10
 #define DIO 11
 TM1637Display display(CLK, DIO);

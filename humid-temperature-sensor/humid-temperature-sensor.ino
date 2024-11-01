@@ -1,6 +1,5 @@
 /*
-   This code reads temperature and humidity data from a DHT11 sensor 
-   and displays the rounded integer values on a TM1637 4-digit 7-segment display.
+   This code reads temperature, humidity, and light intensity for a hydroponic system.
 
    - DHT11 sensor setup:
      - Data pin connected to Arduino Pin 7.
@@ -10,14 +9,17 @@
      - CLK (clock) pin connected to Arduino Pin 10.
      - DIO (data) pin connected to Arduino Pin 11.
 
+   - LDR (Light Dependent Resistor) setup:
+     - LDR connected between 5V and analog pin A0.
+     - 10kΩ resistor connected between A0 and GND.
+
    Functionality:
-   - The first two digits of the display show the temperature in °C as an integer.
-   - The last two digits show the humidity in % as an integer.
-   - The middle colon (two dots) on the display is always on.
-   
-   Additional:
-   - Precise temperature and humidity (with one decimal point) are printed to the Serial Monitor.
-   - Readings update every 10 seconds.
+   - The TM1637 display shows rounded integer values of temperature and humidity.
+     - First two digits: temperature in °C.
+     - Last two digits: humidity in %.
+   - Light intensity is printed in the Serial Monitor.
+   - Middle colon on the TM1637 display is always on.
+   - Updates every 10 seconds.
 */
 
 #include <DHT.h>
@@ -33,17 +35,21 @@ DHT dht(DHTPIN, DHTTYPE);
 #define DIO 11
 TM1637Display display(CLK, DIO);
 
+// LDR Configuration
+#define LDR_PIN A0
+
 void setup() {
   Serial.begin(9600);
   dht.begin();
   display.setBrightness(0x0f); // Max brightness for TM1637
-  Serial.println("Starting DHT11 sensor test...");
+  Serial.println("Starting sensor tests...");
   delay(2000);  // Add delay for initialization
 }
 
 void loop() {
   float h = dht.readHumidity();
   float t = dht.readTemperature();
+  int lightIntensity = analogRead(LDR_PIN); // Read light intensity from LDR
 
   if (isnan(h) || isnan(t)) {
     Serial.println("Failed to read from DHT sensor!");
@@ -54,7 +60,8 @@ void loop() {
     Serial.print(t, 1);  // Show temperature with one decimal place
     Serial.print(" °C, Humidity: ");
     Serial.print(h, 1);  // Show humidity with one decimal place
-    Serial.println(" %");
+    Serial.print(" %, Light Intensity: ");
+    Serial.println(lightIntensity); // Print light intensity value
 
     // Display rounded integer values for temperature and humidity on TM1637
     displayTemperatureAndHumidity(round(t), round(h));

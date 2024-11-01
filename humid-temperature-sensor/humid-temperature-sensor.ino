@@ -1,25 +1,30 @@
 /*
-   This code reads temperature, humidity, and light intensity for a hydroponic system.
+   This code is used to monitor temperature, humidity, and light intensity 
+   in a hydroponic system using a DHT11 sensor and an LDR.
 
    - DHT11 sensor setup:
      - Data pin connected to Arduino Pin 7.
-     - Provides temperature in °C and humidity as a percentage (%).
+     - Measures temperature in °C and humidity as a percentage (%).
 
    - TM1637 4-digit display setup (model 3462BS):
      - CLK (clock) pin connected to Arduino Pin 10.
      - DIO (data) pin connected to Arduino Pin 11.
+     - First two digits display temperature (°C) as an integer.
+     - Last two digits display humidity (%) as an integer.
+     - Middle colon (two dots) on the display is always on.
 
-   - LDR (Light Dependent Resistor) setup:
+   - LDR (Light Dependent Resistor) setup for light intensity:
      - LDR connected between 5V and analog pin A0.
-     - 10kΩ resistor connected between A0 and GND.
+     - 10kΩ resistor connected between A0 and GND, creating a voltage divider.
+     - The analog reading is converted to an estimated lux value using the LDR resistance.
+       - LDR Resistance = 10kΩ * (1023 / Analog Reading - 1)
+       - Estimated Lux ≈ 500 / (LDR Resistance in kΩ)
 
    Functionality:
    - The TM1637 display shows rounded integer values of temperature and humidity.
-     - First two digits: temperature in °C.
-     - Last two digits: humidity in %.
-   - Light intensity is printed in the Serial Monitor.
-   - Middle colon on the TM1637 display is always on.
-   - Updates every 10 seconds.
+   - The Serial Monitor outputs the temperature and humidity with one decimal place, 
+     as well as an approximate light intensity in lux.
+   - Readings update every 10 seconds.
 */
 
 #include <DHT.h>
@@ -37,6 +42,7 @@ TM1637Display display(CLK, DIO);
 
 // LDR Configuration
 #define LDR_PIN A0
+#define R_FIXED 10000 // Fixed resistor value in ohms (10kΩ)
 
 void setup() {
   Serial.begin(9600);
@@ -49,7 +55,13 @@ void setup() {
 void loop() {
   float h = dht.readHumidity();
   float t = dht.readTemperature();
-  int lightIntensity = analogRead(LDR_PIN); // Read light intensity from LDR
+  int lightIntensityRaw = analogRead(LDR_PIN); // Read light intensity from LDR
+
+  // Calculate LDR resistance
+  float ldrResistance = (float)R_FIXED * (1023.0 / lightIntensityRaw - 1);
+
+  // Approximate Lux calculation
+  float lux = 500 / (ldrResistance / 1000); // Convert ohms to kΩ for lux approximation
 
   if (isnan(h) || isnan(t)) {
     Serial.println("Failed to read from DHT sensor!");
@@ -61,7 +73,8 @@ void loop() {
     Serial.print(" °C, Humidity: ");
     Serial.print(h, 1);  // Show humidity with one decimal place
     Serial.print(" %, Light Intensity: ");
-    Serial.println(lightIntensity); // Print light intensity value
+    Serial.print(lux);
+    Serial.println(" lux");
 
     // Display rounded integer values for temperature and humidity on TM1637
     displayTemperatureAndHumidity(round(t), round(h));

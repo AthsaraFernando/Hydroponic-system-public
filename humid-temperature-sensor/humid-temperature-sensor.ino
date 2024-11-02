@@ -1,6 +1,6 @@
 /*
-   This code is used to monitor temperature, humidity, and light intensity 
-   in a hydroponic system using a DHT11 sensor and an LDR.
+   This code monitors temperature, humidity, light intensity, and water level
+   in a hydroponic system using various sensors connected to an Arduino.
 
    - DHT11 sensor setup:
      - Data pin connected to Arduino Pin 7.
@@ -16,14 +16,17 @@
    - LDR (Light Dependent Resistor) setup for light intensity:
      - LDR connected between 5V and analog pin A0.
      - 10kΩ resistor connected between A0 and GND, creating a voltage divider.
-     - The analog reading is converted to an estimated lux value using the LDR resistance.
-       - LDR Resistance = 10kΩ * (1023 / Analog Reading - 1)
-       - Estimated Lux ≈ 500 / (LDR Resistance in kΩ)
+     - The analog reading is converted to an estimated lux value.
+
+   - Water Level Sensor setup:
+     - Analog out pin (A0) connected to Arduino Analog Pin A1.
+     - Reads water level as an analog value (0-1023), with 0 meaning low level 
+       and 1023 meaning high level.
 
    Functionality:
-   - The TM1637 display shows rounded integer values of temperature and humidity.
-   - The Serial Monitor outputs the temperature and humidity with one decimal place, 
-     as well as an approximate light intensity in lux.
+   - The TM1637 display shows integer values of temperature and humidity.
+   - The Serial Monitor outputs precise temperature and humidity, light intensity in lux, 
+     and water level as a raw analog value.
    - Readings update every 10 seconds.
 */
 
@@ -44,6 +47,9 @@ TM1637Display display(CLK, DIO);
 #define LDR_PIN A0
 #define R_FIXED 10000 // Fixed resistor value in ohms (10kΩ)
 
+// Water Level Sensor Configuration
+#define WATER_LEVEL_PIN A1
+
 void setup() {
   Serial.begin(9600);
   dht.begin();
@@ -56,6 +62,7 @@ void loop() {
   float h = dht.readHumidity();
   float t = dht.readTemperature();
   int lightIntensityRaw = analogRead(LDR_PIN); // Read light intensity from LDR
+  int waterLevelRaw = analogRead(WATER_LEVEL_PIN); // Read water level from the sensor
 
   // Calculate LDR resistance
   float ldrResistance = (float)R_FIXED * (1023.0 / lightIntensityRaw - 1);
@@ -74,7 +81,8 @@ void loop() {
     Serial.print(h, 1);  // Show humidity with one decimal place
     Serial.print(" %, Light Intensity: ");
     Serial.print(lux);
-    Serial.println(" lux");
+    Serial.print(" lux, Water Level: ");
+    Serial.println(waterLevelRaw); // Print raw water level reading
 
     // Display rounded integer values for temperature and humidity on TM1637
     displayTemperatureAndHumidity(round(t), round(h));

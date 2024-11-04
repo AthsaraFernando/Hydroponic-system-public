@@ -21,7 +21,7 @@
    - Water Level Sensor setup:
      - Analog out pin (A0) connected to Arduino Analog Pin A1.
      - Reads water level as an analog value (0-1023), with 0 meaning low level 
-       and 1023 meaning high level.
+       and 1023 meaning high level
 
    Functionality:
    - The TM1637 display shows integer values of temperature and humidity.

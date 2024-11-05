@@ -1,13 +1,15 @@
 # Hydroponic System Monitoring with ESP32
 
-**Google Sheets URL**: https://docs.google.com/spreadsheets/d/1dCgt7THF3cOpQ7jK7-KPpe2uO55g0JtL4vvuNqq9zh8/edit?gid=0#gid=0   
-**Google Apps Script Manage URL**: https://script.google.com/u/0/home/projects/1poKho3ooc0cjWtJ61_2C0ZUHB_Q__r_TrzrOnwBDIZwgMc24Re1UqgjW/edit
-**Google Apps Script Webhook URL**: https://script.google.com/macros/s/AKfycbw-h2ujx4oPxS1luFL86c3IibBRv7MCIUbMsjPrtWk0OkXhXqD3NOIp8nsKQIlZHCM_1w/exec 
+- **Google Sheets URL**: https://docs.google.com/spreadsheets/d/1dCgt7THF3cOpQ7jK7-KPpe2uO55g0JtL4vvuNqq9zh8/edit?gid=0#gid=0
+- **Google Apps Script Manage URL**: https://script.google.com/u/0/home/projects/1poKho3ooc0cjWtJ61_2C0ZUHB_Q__r_TrzrOnwBDIZwgMc24Re1UqgjW/edit
+- **Google Apps Script Webhook URL**: https://script.google.com/macros/s/AKfycbw-h2ujx4oPxS1luFL86c3IibBRv7MCIUbMsjPrtWk0OkXhXqD3NOIp8nsKQIlZHCM_1w/exec
+
 ## Project Overview
 
 This project is designed to monitor environmental conditions in a hydroponic system using an ESP32 microcontroller. The system measures **temperature**, **humidity**, **light intensity**, and **water level** using a DHT11 sensor, LDR, and a water level sensor. The data is displayed on a TM1637 4-digit display, sent to a Google Sheet via Wi-Fi, and updated every 10 seconds.
 
 ## Components Used
+
 - **ESP32 DEVKIT V1** - Microcontroller with Wi-Fi capability.
 - **DHT11 Temperature and Humidity Sensor** - Measures ambient temperature and humidity.
 - **TM1637 4-Digit 7-Segment Display** - Displays temperature and humidity.
@@ -17,6 +19,7 @@ This project is designed to monitor environmental conditions in a hydroponic sys
 - **Google Apps Script** - Receives data from the ESP32 and writes it to Google Sheets.
 
 ## Features
+
 - **Real-time Monitoring**: Temperature, humidity, light intensity, and water level are monitored every 10 seconds.
 - **Data Logging to Google Sheets**: The ESP32 sends sensor data to Google Sheets via a webhook created in Google Apps Script.
 - **Display Data Locally**: The TM1637 display shows the temperature (°C) and humidity (%) in integer format.
@@ -24,29 +27,34 @@ This project is designed to monitor environmental conditions in a hydroponic sys
 ## Wiring and Setup
 
 ### ESP32 Pin Assignments
-| Component                | ESP32 Pin        |
-|--------------------------|------------------|
-| **DHT11 (Data)**         | GPIO 5           |
-| **TM1637 Display (CLK)** | GPIO 18          |
-| **TM1637 Display (DIO)** | GPIO 19          |
-| **LDR (Analog)**         | GPIO 34          |
-| **Water Level Sensor**   | GPIO 36          |
-| **VCC Connections**      | 3.3V             |
-| **GND Connections**      | GND              |
+
+| Component                | ESP32 Pin |
+| ------------------------ | --------- |
+| **DHT11 (Data)**         | GPIO 5    |
+| **TM1637 Display (CLK)** | GPIO 18   |
+| **TM1637 Display (DIO)** | GPIO 19   |
+| **LDR (Analog)**         | GPIO 34   |
+| **Water Level Sensor**   | GPIO 36   |
+| **VCC Connections**      | 3.3V      |
+| **GND Connections**      | GND       |
 
 ### Wiring Instructions
+
 1. **DHT11 Sensor**:
+
    - **Data Pin**: Connect to GPIO 5.
    - **VCC**: Connect to 3.3V.
    - **GND**: Connect to GND.
 
 2. **TM1637 Display**:
+
    - **CLK**: Connect to GPIO 18.
    - **DIO**: Connect to GPIO 19.
    - **VCC**: Connect to 3.3V.
    - **GND**: Connect to GND.
 
 3. **LDR Setup**:
+
    - Connect one side of the LDR to 3.3V.
    - Connect the other side of the LDR to GPIO 34.
    - Place a **10kΩ resistor** between GPIO 34 and GND to form a voltage divider.
@@ -61,9 +69,11 @@ This project is designed to monitor environmental conditions in a hydroponic sys
 ### Step 1: Prepare the Google Sheet and Apps Script
 
 1. **Create a new Google Sheet**:
+
    - Name the sheet and create columns labeled: `Timestamp`, `Temperature`, `Humidity`, `Light Intensity`, `Water Level`.
 
 2. **Create Google Apps Script**:
+
    - Go to **Extensions > Apps Script** in Google Sheets.
    - Paste the following script:
 
@@ -71,7 +81,13 @@ This project is designed to monitor environmental conditions in a hydroponic sys
      function doPost(e) {
        const sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
        const data = JSON.parse(e.postData.contents);
-       sheet.appendRow([new Date(), data.temperature, data.humidity, data.light, data.water]);
+       sheet.appendRow([
+         new Date(),
+         data.temperature,
+         data.humidity,
+         data.light,
+         data.water,
+       ]);
        return ContentService.createTextOutput("Data added successfully");
      }
      ```
@@ -86,6 +102,7 @@ This project is designed to monitor environmental conditions in a hydroponic sys
 ### Step 2: Program the ESP32
 
 1. **Install Libraries**:
+
    - In Arduino IDE, go to **Library Manager** and install the following:
      - `DHT sensor library` by Adafruit.
      - `TM1637Display` library for controlling the TM1637.
@@ -155,9 +172,9 @@ This project is designed to monitor environmental conditions in a hydroponic sys
          http.begin(webhookURL);
          http.addHeader("Content-Type", "application/json");
 
-         String jsonData = "{\"temperature\":" + String(t, 1) + 
-                           ", \"humidity\":" + String(h, 1) + 
-                           ", \"light\":" + String(lux) + 
+         String jsonData = "{\"temperature\":" + String(t, 1) +
+                           ", \"humidity\":" + String(h, 1) +
+                           ", \"light\":" + String(lux) +
                            ", \"water\":" + String(waterLevelRaw) + "}";
 
          int httpResponseCode = http.POST(jsonData);
@@ -177,3 +194,4 @@ This project is designed to monitor environmental conditions in a hydroponic sys
      int displayValue = (temp * 100) + humidity;
      display.showNumberDecEx(displayValue, 0b11100000, true);
    }
+   ```

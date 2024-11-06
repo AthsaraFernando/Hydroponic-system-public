@@ -26,7 +26,7 @@ This project is designed to monitor environmental conditions in a hydroponic sys
 
 ## Wiring and Setup
 
-### ESP32 Pin Assignments
+### ESP32 Pins Assignment
 
 | Component                | ESP32 Pin |
 | ------------------------ | --------- |

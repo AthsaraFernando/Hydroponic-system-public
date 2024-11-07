@@ -43,7 +43,7 @@ const char* ssid = "SURATH LAKPURA";
 const char* password = "12345678";
 
 // Google Sheets webhook URL
-const char* webhookURL = "https://script.google.com/macros/s/AKfycbw-h2ujx4oPxS1luFL86c3IibBRv7MCIUbMsjPrtWk0OkXhXqD3NOIp8nsKQIlZHCM_1w/exec";
+const char* webhookURL = "https://script.google.com/macros/s/AKfycbznfg1ZYowHA5rSPZ-oI8Yih8iY9VEZOEsImTSg4zSclewYjD9IenS9HVWyHduWUP1e/exec";
 
 // DHT11 Configuration
 #define DHTPIN 5

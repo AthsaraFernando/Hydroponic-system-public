@@ -1,8 +1,9 @@
 # Hydroponic System Monitoring with ESP32
 
-- **Google Sheets URL**: https://docs.google.com/spreadsheets/d/1dCgt7THF3cOpQ7jK7-KPpe2uO55g0JtL4vvuNqq9zh8/edit?gid=0#gid=0
-- **Google Apps Script Manage URL**: https://script.google.com/u/0/home/projects/1poKho3ooc0cjWtJ61_2C0ZUHB_Q__r_TrzrOnwBDIZwgMc24Re1UqgjW/edit
-- **Google Apps Script Webhook URL**: https://script.google.com/macros/s/AKfycbw-h2ujx4oPxS1luFL86c3IibBRv7MCIUbMsjPrtWk0OkXhXqD3NOIp8nsKQIlZHCM_1w/exec
+- **Google Account**: thidaswin.athsara@gmail.com
+- **Google Sheets URL**: https://docs.google.com/spreadsheets/d/19-jAPUh4LSR3_U1_81V-5ZSzh9QF_28df7PJhqAA5e0/edit?gid=0#gid=0
+- **Google Apps Script Manage URL**: https://script.google.com/u/0/home/projects/1ywzhEQvpk2oj4yLe584IQHGVu3pJwMa_A1Xb6IvQ5rdXdV2BJyb40Xds/edit
+- **Google Apps Script Webhook URL**: https://script.google.com/macros/s/AKfycbznfg1ZYowHA5rSPZ-oI8Yih8iY9VEZOEsImTSg4zSclewYjD9IenS9HVWyHduWUP1e/exec
 
 ## Project Overview
 

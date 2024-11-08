@@ -58,7 +58,7 @@ This project is designed to monitor environmental conditions in a hydroponic sys
 
    - Connect one side of the LDR to 3.3V.
    - Connect the other side of the LDR to GPIO 34.
-   - Place a **10kΩ resistor** between GPIO 34 and GND to form a voltage divider.
+   - Place a **10kΩ resistor** between GPIO 34 and GND to form a voltage divider
 
 4. **Water Level Sensor**:
    - **Analog Output**: Connect to GPIO 36.

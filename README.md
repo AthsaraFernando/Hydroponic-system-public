@@ -43,6 +43,14 @@ Below is a preview of how the live monitoring looks when accessed via mobile:
   <img src="hydroponic-retool.gif" alt="Live Monitoring Preview" width="300px">
 </p>
 
+### Google Sheets Data Snapshot
+
+Below is a screenshot of the Google Sheet used for storing the hydroponic system data:
+
+<p align="center">
+  <img src="ss.png" alt="Google Sheets Data Snapshot" width="600px">
+</p>
+
 ## Wiring and Setup
 
 ### ESP32 Pins Assignment

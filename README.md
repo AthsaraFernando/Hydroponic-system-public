@@ -39,7 +39,9 @@ This project is designed to monitor environmental conditions in a hydroponic sys
 
 Below is a preview of how the live monitoring looks when accessed via mobile:
 
-![Live Monitoring Preview](hydroponic-retool.gif)
+<p align="center">
+  <img src="hydroponic-retool.gif" alt="Live Monitoring Preview" width="300px">
+</p>
 
 ## Wiring and Setup
 

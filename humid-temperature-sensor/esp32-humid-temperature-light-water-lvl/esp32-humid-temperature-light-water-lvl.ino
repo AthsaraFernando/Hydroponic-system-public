@@ -39,11 +39,11 @@
 #include <TM1637Display.h>
 
 // WiFi credentials
-const char* ssid = "SURATH LAKPURA";
-const char* password = "12345678";
+const char* ssid = "XXXreplaceXXX";
+const char* password = "XXXreplaceXXX";
 
 // Google Sheets webhook URL
-const char* webhookURL = "https://script.google.com/macros/s/AKfycbznfg1ZYowHA5rSPZ-oI8Yih8iY9VEZOEsImTSg4zSclewYjD9IenS9HVWyHduWUP1e/exec";
+const char* webhookURL = "XXXreplaceXXX";
 
 // DHT11 Configuration
 #define DHTPIN 5

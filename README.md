@@ -4,8 +4,8 @@
 - **Google Sheets URL**: https://docs.google.com/spreadsheets/d/19-jAPUh4LSR3_U1_81V-5ZSzh9QF_28df7PJhqAA5e0/edit?gid=0#gid=0
 - **Google Apps Script Manage URL**: https://script.google.com/u/0/home/projects/1ywzhEQvpk2oj4yLe584IQHGVu3pJwMa_A1Xb6IvQ5rdXdV2BJyb40Xds/edit
 - **Google Apps Script Webhook URL**: https://script.google.com/macros/s/AKfycbznfg1ZYowHA5rSPZ-oI8Yih8iY9VEZOEsImTSg4zSclewYjD9IenS9HVWyHduWUP1e/exec
-  **Retool Web App Link**: https://athsarahydroponic.retool.com/apps/ab189782-9dcf-11ef-b23c-d39d35f88d50/Hydroponic
-  **Important Note**: For safety and security, use an **alternative email account** when connecting Retool or other third-party apps to your Google Drive to avoid potential privacy issues. Ensure this account only contains the data necessary for this project.
+- **Retool Web App Link**: https://athsarahydroponic.retool.com/apps/ab189782-9dcf-11ef-b23c-d39d35f88d50/Hydroponic
+- **Important Note**: For safety and security, use an **alternative email account** when connecting Retool or other third-party apps to your Google Drive to avoid potential privacy issues. Ensure this account only contains the data necessary for this project.
 
 ## Project Overview
 

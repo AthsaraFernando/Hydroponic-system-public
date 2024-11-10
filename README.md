@@ -51,6 +51,12 @@ Below is a screenshot of the Google Sheet used for storing the hydroponic system
   <img src="ss.png" alt="Google Sheets Data Snapshot" width="600px">
 </p>
 
+### Sensor set picture
+
+<p align="center">
+  <img src="sensors.jpg" alt="Google Sheets Data Snapshot" height="400px" width="400px">
+</p>
+
 ## Wiring and Setup
 
 ### ESP32 Pins Assignment
